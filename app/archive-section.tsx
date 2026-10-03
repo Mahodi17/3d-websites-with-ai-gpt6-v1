@@ -41,6 +41,90 @@ const archiveEntries = [
   },
 ];
 
+const promptStages = [
+  {
+    number: "01",
+    phase: "THE VISUAL FOUNDATION",
+    title: "Start with a precise reference",
+    brief:
+      "Use the attached image as the exact layout reference. Preserve its composition, spacing, proportions, typography hierarchy, navigation, lower text area, and CTA placement. Replace the oversized headline with FLORIA, use the supplied supporting copy and two calls to action, remove every piece of artwork, and use pure black. Keep it minimal, premium, editorial, mysterious, responsive, and do not redesign the layout.",
+    result:
+      "Established the visual rules first: what must stay, what must change, and what must disappear.",
+  },
+  {
+    number: "02",
+    phase: "A CURSOR-LED REVEAL",
+    title: "Add one effect, not a new design",
+    brief:
+      "Keep the existing hero and background exactly as they are. Use the supplied reveal image unchanged. Reveal it only inside a soft, 260px circular spotlight centered on the cursor, with a feathered edge and smooth eased movement. Use CSS radial-gradient masks, keep the reveal layer below all interface content, ignore pointer events, and hide it when the pointer leaves the hero.",
+    result:
+      "A tightly scoped interaction with explicit asset, layering, motion, and pointer behavior.",
+  },
+  {
+    number: "03",
+    phase: "SCROLL STORYTELLING",
+    title: "Turn an image into a discovery",
+    brief:
+      "Place the supplied image in the next section on pure black, centered at 9:16 with a small initial size and generous negative space. As the visitor scrolls, smoothly grow it beyond its container until it fills the viewport, preserving its composition and focal point. Surround it with asymmetric editorial notes, then fade, slide, rotate, and scale those notes away in a staggered sequence. Add subtle parallax and make the experience responsive.",
+    result:
+      "Defined the section as a cinematic, scroll-driven transition rather than a static image block.",
+  },
+  {
+    number: "04",
+    phase: "EXTEND THE EXPERIENCE",
+    title: "Build the archive and the ending",
+    brief:
+      "Continue the visual story after the immersive section with an editorial discovery archive and a closing footer. Keep the same premium, dark art direction; use asymmetric project presentations, refined motion, and a clear contact invitation.",
+    result:
+      "Expanded the page into a complete experience while keeping the same visual language.",
+  },
+  {
+    number: "05",
+    phase: "MAKE IT PERSONAL",
+    title: "Replace the fictional world with my work",
+    brief:
+      "Turn the project into my personal portfolio. Use my name, MB Mahodi, and present me as a frontend engineer and artist who enjoys drawing and building robotics projects. Bring in my real skills, projects, leadership, and contact details; remove the Floria-specific storytelling and make the content describe my actual work.",
+    result:
+      "Shifted the content from the original FLORIA art-direction exercise to a portfolio about its creator.",
+  },
+  {
+    number: "06",
+    phase: "AN INTERACTIVE SKILL LANDSCAPE",
+    title: "Show what I can make",
+    brief:
+      "The hero feels too empty. Represent my skills as small 3D-style objects resting on the ground. When the pointer approaches or hovers over an object, let it float and reveal what it represents. Make the interaction work on touch too. Show the skill name and category, but do not invent expertise ratings or percentages.",
+    result:
+      "Introduced six tactile skill objects while keeping the proficiency claims honest.",
+  },
+  {
+    number: "07",
+    phase: "CORRECT THE PLACEMENT",
+    title: "Put the models in the right scene",
+    brief:
+      "The 3D models are in the wrong place. Remove them from the upper hero and put them in the MB MAHODI / FIELD NOTES section instead.",
+    result:
+      "Moved the entire skill-object experience into the landscape story section, not the hero.",
+  },
+  {
+    number: "08",
+    phase: "CONTROL THE REVEAL",
+    title: "Wait for the full-screen moment",
+    brief:
+      "Do not show the skill models before the scroll-driven image has grown all the way to full size. Reveal them only once the image fills the screen.",
+    result:
+      "Made the models part of the final immersive state and kept them hidden and inactive before then.",
+  },
+  {
+    number: "09",
+    phase: "REFINE THE COMPOSITION",
+    title: "Scatter, balance, and invite exploration",
+    brief:
+      "The models are all in one row. Arrange them in attractive, intentional positions that work with the image composition, and add subtle highlights so visitors feel invited to move the pointer over them.",
+    result:
+      "Spread the objects across the landscape at varied heights, with soft pulsing glows and stronger hover feedback.",
+  },
+];
+
 export default function ArchiveSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const frameRequestRef = useRef<number | null>(null);
@@ -173,6 +257,46 @@ export default function ArchiveSection() {
           </div>
 
           <section
+            className="prompt-log"
+            id="prompt-log"
+            aria-labelledby="prompt-log-title"
+          >
+            <div className="archive-subheading">
+              <p>PROMPT ENGINEERING / PROCESS ARCHIVE</p>
+              <h3 id="prompt-log-title">One prompt at a time.</h3>
+            </div>
+            <p className="prompt-log-intro">
+              This portfolio grew through a sequence of briefs, feedback, and
+              corrections—not a single prompt. The entries below are carefully
+              reconstructed summaries of the project conversation, not a
+              word-for-word transcript. They document how the direction
+              evolved from a FLORIA visual study into my personal portfolio.
+            </p>
+            <div className="prompt-list">
+              {promptStages.map((stage) => (
+                <article className="prompt-entry" key={stage.number}>
+                  <div className="prompt-entry-heading">
+                    <span className="prompt-entry-number">{stage.number}</span>
+                    <p>{stage.phase}</p>
+                  </div>
+                  <h4>{stage.title}</h4>
+                  <p className="prompt-entry-label">PROMPT BRIEF</p>
+                  <blockquote>{stage.brief}</blockquote>
+                  <p className="prompt-entry-result">
+                    <span>WHAT IT CHANGED</span>
+                    {stage.result}
+                  </p>
+                </article>
+              ))}
+            </div>
+            <p className="prompt-log-principle">
+              THE METHOD <span>→</span> Give a clear goal. Name the constraints.
+              Review the result. Correct the exact mismatch. Refine one layer
+              at a time.
+            </p>
+          </section>
+
+          <section
             className="archive-expertise"
             id="expertise"
             aria-labelledby="expertise-title"
@@ -282,6 +406,7 @@ export default function ArchiveSection() {
             <a href="#about">ABOUT</a>
             <a href="#expertise">EXPERTISE</a>
             <a href="#projects">PROJECTS</a>
+            <a href="#prompt-log">PROMPT LOG</a>
           </nav>
           <nav className="footer-socials" id="contact" aria-label="Contact links">
             <a href="mailto:mahodibilla106@gmail.com">EMAIL ↗</a>

@@ -6,6 +6,7 @@ const destinations = [
   { label: "About", href: "#about" },
   { label: "Expertise", href: "#expertise" },
   { label: "Projects", href: "#projects" },
+  { label: "Prompt log", href: "#prompt-log" },
   { label: "Contact", href: "#contact" },
 ];
 

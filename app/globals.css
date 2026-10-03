@@ -1136,12 +1136,111 @@ a {
 }
 
 .archive-expertise,
+.prompt-log,
 .leadership-notes {
   position: relative;
   z-index: 1;
   margin-top: clamp(130px, 18vw, 250px);
   padding-top: 28px;
   border-top: 1px solid rgba(242, 240, 236, 0.2);
+}
+
+.prompt-log-intro {
+  max-width: 680px;
+  margin: 0 0 clamp(42px, 6vw, 78px) auto;
+  color: rgba(242, 240, 236, 0.58);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.75;
+}
+
+.prompt-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  counter-reset: prompt-step;
+}
+
+.prompt-entry {
+  min-width: 0;
+  padding: clamp(20px, 3vw, 38px);
+  border: 1px solid rgba(242, 240, 236, 0.15);
+  background:
+    radial-gradient(ellipse at 0 0, rgba(167, 181, 160, 0.07), transparent 52%),
+    rgba(255, 255, 255, 0.012);
+}
+
+.prompt-entry-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.prompt-entry-number {
+  color: #d1c096;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  letter-spacing: -0.08em;
+  line-height: 1;
+}
+
+.prompt-entry-heading > p,
+.prompt-entry-label,
+.prompt-entry-result > span {
+  color: rgba(201, 185, 143, 0.78);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  line-height: 1.7;
+}
+
+.prompt-entry-heading > p {
+  margin: 0;
+}
+
+.prompt-entry h4 {
+  margin: 25px 0 22px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.prompt-entry-label {
+  margin: 0 0 9px;
+  color: rgba(242, 240, 236, 0.38);
+}
+
+.prompt-entry blockquote {
+  margin: 0;
+  color: rgba(242, 240, 236, 0.7);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.prompt-entry-result {
+  display: grid;
+  gap: 7px;
+  margin: 25px 0 0;
+  padding-top: 17px;
+  border-top: 1px solid rgba(242, 240, 236, 0.12);
+  color: rgba(242, 240, 236, 0.5);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.prompt-log-principle {
+  max-width: 760px;
+  margin: clamp(42px, 6vw, 76px) 0 0 auto;
+  color: rgba(242, 240, 236, 0.58);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 2vw, 25px);
+  line-height: 1.6;
+}
+
+.prompt-log-principle > span {
+  color: #c9b98f;
 }
 
 .archive-subheading {
@@ -1509,8 +1608,18 @@ a {
   }
 
   .archive-expertise,
+  .prompt-log,
   .leadership-notes {
     margin-top: 140px;
+  }
+
+  .prompt-list {
+    grid-template-columns: 1fr;
+  }
+
+  .prompt-log-intro,
+  .prompt-log-principle {
+    margin-left: 0;
   }
 
   .expertise-columns {
