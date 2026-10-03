@@ -118,6 +118,7 @@ export default function StorySection() {
     const skillFloor = skillFloorRef.current;
     if (!section || !stage || !artwork || !skillFloor) return;
 
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const noteElements = Array.from(
       section.querySelectorAll<HTMLElement>("[data-story-note]"),
     );
@@ -130,7 +131,9 @@ export default function StorySection() {
         0,
         1,
       );
-      const expansion = easeOut(clamp(progress / 0.76, 0, 1));
+      const expansion = reducedMotion.matches
+        ? 1
+        : easeOut(clamp(progress / 0.76, 0, 1));
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       const startWidth = clamp(viewportWidth * 0.18, 160, 248);
@@ -145,6 +148,12 @@ export default function StorySection() {
       stage.style.setProperty("--story-progress", `${progress}`);
 
       for (const note of noteElements) {
+        if (reducedMotion.matches) {
+          note.style.opacity = "0";
+          note.style.transform = "none";
+          continue;
+        }
+
         const start = Number(note.dataset.exitStart);
         const exit = easeOut(clamp((progress - start) / 0.22, 0, 1));
         const x = Number(note.dataset.exitX) * exit;
@@ -156,7 +165,13 @@ export default function StorySection() {
         note.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotation}deg) scale(${scale})`;
       }
 
-      const skillReveal = easeOut(clamp((progress - 0.76) / 0.1, 0, 1));
+      const skillReveal = reducedMotion.matches
+        ? 1
+        : easeOut(clamp((progress - 0.76) / 0.1, 0, 1));
+      section.classList.toggle(
+        "story-section--reduced-motion",
+        reducedMotion.matches,
+      );
       skillFloor.style.opacity = `${skillReveal}`;
       skillFloor.style.transform = `translate3d(0, ${(1 - skillReveal) * 24}px, 0)`;
       skillFloor.style.pointerEvents = skillReveal >= 0.95 ? "auto" : "none";
@@ -174,10 +189,12 @@ export default function StorySection() {
     scheduleRender();
     window.addEventListener("scroll", scheduleRender, { passive: true });
     window.addEventListener("resize", scheduleRender);
+    reducedMotion.addEventListener("change", scheduleRender);
 
     return () => {
       window.removeEventListener("scroll", scheduleRender);
       window.removeEventListener("resize", scheduleRender);
+      reducedMotion.removeEventListener("change", scheduleRender);
       if (animationFrameRef.current !== null) {
         cancelAnimationFrame(animationFrameRef.current);
       }

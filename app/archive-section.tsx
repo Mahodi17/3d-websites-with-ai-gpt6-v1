@@ -195,13 +195,12 @@ export default function ArchiveSection() {
   }, []);
 
   return (
-    <>
-      <section
-        className="archive-section"
-        id="projects"
-        ref={sectionRef}
-        aria-labelledby="archive-title"
-      >
+    <section
+      className="archive-section"
+      id="projects"
+      ref={sectionRef}
+      aria-labelledby="archive-title"
+    >
         <div className="archive-inner">
           <div className="archive-heading">
             <p className="archive-overline">
@@ -383,42 +382,45 @@ export default function ArchiveSection() {
             </a>
           </div>
         </div>
-      </section>
+    </section>
+  );
+}
 
-      <footer className="artbook-footer" id="colophon">
-        <div className="footer-topline">
-          <p>AI · EMBEDDED SYSTEMS · ROBOTICS · ART</p>
-          <a href="#world">BACK TO TOP ↑</a>
-        </div>
-        <p className="footer-statement">
-          Curious by nature,
-          <br />
-          <em>built to experiment.</em>
+export function PortfolioFooter() {
+  return (
+    <footer className="artbook-footer" id="colophon">
+      <div className="footer-topline">
+        <p>AI · EMBEDDED SYSTEMS · ROBOTICS · ART</p>
+        <a href="#world">BACK TO TOP ↑</a>
+      </div>
+      <p className="footer-statement">
+        Curious by nature,
+        <br />
+        <em>built to experiment.</em>
+      </p>
+      <a className="footer-wordmark" href="#world" aria-label="MB Mahodi home">
+        MB MAHODI
+      </a>
+      <div className="footer-bottom">
+        <p className="footer-copyright">
+          © 2026 MUNTASIM BILLA MAHODI TALUKDAR · NETROKONA, BANGLADESH
         </p>
-        <a className="footer-wordmark" href="#world" aria-label="MB Mahodi home">
-          MB MAHODI
-        </a>
-        <div className="footer-bottom">
-          <p className="footer-copyright">
-            © 2026 MUNTASIM BILLA MAHODI TALUKDAR · NETROKONA, BANGLADESH
-          </p>
-          <nav className="footer-nav" aria-label="Portfolio navigation">
-            <a href="#about">ABOUT</a>
-            <a href="#expertise">EXPERTISE</a>
-            <a href="#projects">PROJECTS</a>
-            <a href="#prompt-log">PROMPT LOG</a>
-          </nav>
-          <nav className="footer-socials" id="contact" aria-label="Contact links">
-            <a href="mailto:mahodibilla106@gmail.com">EMAIL ↗</a>
-            <a href="https://github.com/Mahodi17" target="_blank" rel="noreferrer">
-              GITHUB ↗
-            </a>
-            <a href="https://linkedin.com/in/mb-mahodi" target="_blank" rel="noreferrer">
-              LINKEDIN ↗
-            </a>
-          </nav>
-        </div>
-      </footer>
-    </>
+        <nav className="footer-nav" aria-label="Portfolio navigation">
+          <a href="#about">ABOUT</a>
+          <a href="#expertise">EXPERTISE</a>
+          <a href="#projects">PROJECTS</a>
+          <a href="#prompt-log">PROMPT LOG</a>
+        </nav>
+        <nav className="footer-socials" id="contact" aria-label="Contact links">
+          <a href="mailto:mahodibilla106@gmail.com">EMAIL ↗</a>
+          <a href="https://github.com/Mahodi17" target="_blank" rel="noreferrer">
+            GITHUB ↗
+          </a>
+          <a href="https://linkedin.com/in/mb-mahodi" target="_blank" rel="noreferrer">
+            LINKEDIN ↗
+          </a>
+        </nav>
+      </div>
+    </footer>
   );
 }

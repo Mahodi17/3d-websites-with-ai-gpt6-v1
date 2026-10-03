@@ -1,6 +1,6 @@
 import HeroFrame from "./hero-frame";
 import StorySection from "./story-section";
-import ArchiveSection from "./archive-section";
+import ArchiveSection, { PortfolioFooter } from "./archive-section";
 
 const destinations = [
   { label: "About", href: "#about" },
@@ -69,9 +69,10 @@ export default function Home() {
             </div>
           </section>
         </HeroFrame>
+        <StorySection />
+        <ArchiveSection />
       </main>
-      <StorySection />
-      <ArchiveSection />
+      <PortfolioFooter />
     </>
   );
 }

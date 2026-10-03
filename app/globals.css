@@ -724,12 +724,15 @@ a {
   width: 100%;
   margin: 0 0 0 -0.065em;
   overflow: visible;
-  color: var(--foreground);
+  color: #ffffff;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: clamp(4rem, calc((100vw - 220px) / 6.5), 14rem);
   font-weight: 900;
   letter-spacing: -0.065em;
   line-height: 0.76;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.72),
+    0 8px 28px rgba(0, 0, 0, 0.52);
   white-space: nowrap;
 }
 
@@ -1828,6 +1831,10 @@ a {
   position: relative;
   height: 320svh;
   background: #000000;
+}
+
+.story-section--reduced-motion {
+  height: 100svh;
 }
 
 .story-stage {
