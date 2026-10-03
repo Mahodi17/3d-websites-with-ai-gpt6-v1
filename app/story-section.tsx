@@ -1,6 +1,45 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const skillObjects = [
+  {
+    id: "ai",
+    name: "AI & LLM systems",
+    category: "OLLAMA · LORA · PROMPT DESIGN · AI TOOLS",
+    object: "skill-object-cube",
+  },
+  {
+    id: "embedded",
+    name: "Embedded engineering",
+    category: "ARDUINO · ESP32 · ESP8266 · SENSORS",
+    object: "skill-object-board",
+  },
+  {
+    id: "robotics",
+    name: "Robotics & electronics",
+    category: "CIRCUITS · MOSFET · BATTERY · DC POWER",
+    object: "skill-object-robot",
+  },
+  {
+    id: "software",
+    name: "Software & frontend",
+    category: "PYTHON · C++ · HTML · CSS · XML · GIT",
+    object: "skill-object-laptop",
+  },
+  {
+    id: "prototyping",
+    name: "3D modeling & prototyping",
+    category: "DIGITAL FORM · PHYSICAL BUILDS",
+    object: "skill-object-prototype",
+  },
+  {
+    id: "art",
+    name: "Drawing & visual art",
+    category: "CHARCOAL · PEN & INK · PHOTOSHOP",
+    object: "skill-object-sketch",
+  },
+];
 
 const notes = [
   {
@@ -68,13 +107,16 @@ export default function StorySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const artworkRef = useRef<HTMLDivElement>(null);
+  const skillFloorRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number | null>(null);
+  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const stage = stageRef.current;
     const artwork = artworkRef.current;
-    if (!section || !stage || !artwork) return;
+    const skillFloor = skillFloorRef.current;
+    if (!section || !stage || !artwork || !skillFloor) return;
 
     const noteElements = Array.from(
       section.querySelectorAll<HTMLElement>("[data-story-note]"),
@@ -113,6 +155,13 @@ export default function StorySection() {
         note.style.opacity = `${1 - exit}`;
         note.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotation}deg) scale(${scale})`;
       }
+
+      const skillReveal = easeOut(clamp((progress - 0.76) / 0.1, 0, 1));
+      skillFloor.style.opacity = `${skillReveal}`;
+      skillFloor.style.transform = `translate3d(0, ${(1 - skillReveal) * 24}px, 0)`;
+      skillFloor.style.pointerEvents = skillReveal >= 0.95 ? "auto" : "none";
+      skillFloor.inert = skillReveal < 0.95;
+      skillFloor.setAttribute("aria-hidden", `${skillReveal < 0.95}`);
     };
 
     const scheduleRender = () => {
@@ -185,6 +234,42 @@ export default function StorySection() {
         >
           AI — HARDWARE — ART
         </span>
+        <div
+          className="skill-floor"
+          ref={skillFloorRef}
+          role="group"
+          aria-label="Interactive skill objects"
+          aria-hidden="true"
+          inert
+        >
+          <span className="skill-floor-caption">A FEW THINGS I MAKE</span>
+          {skillObjects.map((skill) => (
+            <button
+              className={`skill-object skill-object-${skill.id} ${skill.object}${selectedSkill === skill.id ? " is-selected" : ""}`}
+              type="button"
+              key={skill.id}
+              aria-pressed={selectedSkill === skill.id}
+              onClick={() =>
+                setSelectedSkill((selected) =>
+                  selected === skill.id ? null : skill.id,
+                )
+              }
+            >
+              <span className="skill-object-visual" aria-hidden="true">
+                <span className="skill-object-shape">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+                <span className="skill-object-shadow" />
+              </span>
+              <span className="skill-object-info">
+                <span className="skill-object-name">{skill.name}</span>
+                <span className="skill-object-category">{skill.category}</span>
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
